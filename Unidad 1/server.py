@@ -16,6 +16,14 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers["Content-Length"])
         post_data = self.rfile.read(content_length)
+        body_json=json.loads(post_data.decode())
+        print(body_json['action'])
+        global contador
+
+        if(body_json['action']=='asc'):
+          contador+=1
+        elif(body_json['action']=='desc'):
+            contador-=1
 
         # Print the complete HTTP request
         print("\n----- Incoming POST Request -----")
@@ -25,7 +33,7 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
         print("-------------------------------")
 
         # Respond to the client
-        response_data = json.dumps({"message": "Received POST data", "data": post_data.decode()})
+        response_data = json.dumps({"message": "Received POST data", "data": post_data.decode(),"status":"OK"})
         self._set_response("application/json")
         self.wfile.write(response_data.encode())
 
