@@ -9,7 +9,7 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_response()
-        self.wfile.write("Hello from the server!. Ahora tengo el poder absoluto y me la pelas".encode())
+        self.wfile.write("Hello from the server!.".encode())
 
     def do_POST(self):
         content_length = int(self.headers["Content-Length"])
